@@ -75,11 +75,11 @@ int main()
             for(k = 0; k < MAX_DIM; k+=4)
             {
                 
-                row = _mm_load_ps(&(a[i][k]));
+                //row = _mm_load_ps(&(a[i][k]));
 
-                col = _mm_load_ps(&(b[j][k]));
+                //col = _mm_load_ps(&(b[j][k]));
 
-                result  = _mm_mul_ps(row, col);
+                result  = _mm_mul_ps(_mm_load_ps(&(a[i][k])), _mm_load_ps(&(b[j][k])));
 
                 tempo = _mm_add_ps(tempo, result);
 
@@ -88,6 +88,7 @@ int main()
             }
             
             d[i][j] = (tempo[0] + tempo[1] + tempo[2] + tempo[3]);
+
             tempo[0] = 0.0; tempo[1] = 0.0; tempo[2] = 0.0; tempo[3] = 0.0;
 
         }
