@@ -4,8 +4,7 @@
 
 int main()
 {
-    int i, j, k, tito;
-    float temp = 0;
+    int i, j, k;
 
     // Variables definition and initialization
     int MAX_DIM = 500;
@@ -16,7 +15,7 @@ int main()
     float   d[MAX_DIM][MAX_DIM] __attribute__ ((aligned(16)));
 
     __m128 row, col, result;
-    __m128 tempo = {0.0, 0.0, 0.0, 0.0};
+    __m128 tempo = _mm_setzero_ps();
 
 
     for(i = 0; i < MAX_DIM; i++)
@@ -70,8 +69,6 @@ int main()
     {
         for(j = 0; j < MAX_DIM; j++)
         {
-            temp = 0;
-
             for(k = 0; k < MAX_DIM; k+=4)
             {
                 
@@ -89,7 +86,7 @@ int main()
             
             d[i][j] = (tempo[0] + tempo[1] + tempo[2] + tempo[3]);
 
-            tempo[0] = 0.0; tempo[1] = 0.0; tempo[2] = 0.0; tempo[3] = 0.0;
+            tempo = _mm_setzero_ps();
 
         }
     }
@@ -117,6 +114,6 @@ int main()
     printf("Time taken by SIMD optimized code is %.7f seconds\n", TotalTimeSIMD);
     printf("Performance gain is x%0.2f\n\n", TotalTimeLoop/TotalTimeSIMD);
     printf("Transpose time is %0.7f seconds\n\n", TransposeTime);
-
+    
     return 0;
 }
