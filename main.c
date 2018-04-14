@@ -23,7 +23,7 @@ int main()
     {
         for(j =0; j < MAX_DIM; j++)
         {
-            a[i][j] = 1;
+            a[i][j] = 13;
 
             c[i][j] = 0; // Necessary Initialization - Don't change
             d[i][j] = 0; // Necessary Initialization - Don't change
@@ -79,9 +79,9 @@ int main()
 
                 //col = _mm_load_ps(&(b[j][k]));
 
-                result  = _mm_mul_ps(_mm_load_ps(&(a[i][k])), _mm_load_ps(&(b[j][k])));
+                //result  = _mm_mul_ps(_mm_load_ps(&(a[i][k])), _mm_load_ps(&(b[j][k])));
 
-                tempo = _mm_add_ps(tempo, result);
+                tempo = _mm_add_ps(tempo, _mm_mul_ps(_mm_load_ps(&(a[i][k])), _mm_load_ps(&(b[j][k]))));
 
                 //printf("%.2f %.2f %.2f %.2f\n", tempo[0], tempo[1], tempo[2], tempo[3]);
                 
@@ -96,7 +96,7 @@ int main()
 
     clock_t time4 = clock();
 
-    /*
+    
     for(i = 0; i < MAX_DIM; i++)
     {
         for(j = 0; j < MAX_DIM; j++)
@@ -105,7 +105,7 @@ int main()
                 printf("ya5taaaaaaaaaaaaaaaaaaaaay\n");
         }
     }
-    */
+    
 
 
     // calculate and print execution times
